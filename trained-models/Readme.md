@@ -1,1 +1,2 @@
-Folder containing trained models
+Folder containing trained models.
+Models for image classification (FoodVision Mini).
