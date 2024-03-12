@@ -2,6 +2,7 @@ from typing import Dict, List, Tuple
 from tqdm.auto import tqdm
 import torch
 from torch import nn
+from torch.utils.tensorboard import SummaryWriter
 
 # Create manual seeds
 def set_seeds(seed:int = 42):
