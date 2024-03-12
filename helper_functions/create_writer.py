@@ -28,7 +28,7 @@ def create_writer(model_name: str,
     This will create a log directory in 'runs/CURRENT_YEAR_MONTH_DAY/effnetb2_model/
     foodVision_10_percent_data/5_epochs'
   """
-  # Get the current datatime in format YYYY/mm/dd
+  # Get the current datetime in format YYYY/mm/dd
   timestamp = datetime.now().strftime('%Y-%m-%d')
 
   # Creating log_dir path
