@@ -106,7 +106,7 @@ def train(model: torch.nn.Module,
           loss_fn: torch.nn.Module,
           optimizer: torch.optim.Optimizer,
           epochs: int,
-          writer: torch.utils.tensorboard.writer.SummaryWriter,
+          writer: torch.utils.tensorboard.writer.SummaryWriter = None,
           seed: int = None,
           device: torch.device = device) -> Dict[str, List]:
   """
@@ -137,7 +137,6 @@ def train(model: torch.nn.Module,
                   'test_loss':[0.7771, 0.5326],
                   'test_acc':[0.727, 0.991]}
   """
-
   # Create a manual seed
   if seed:
     set_seeds(seed)
@@ -172,7 +171,7 @@ def train(model: torch.nn.Module,
     results['test_loss'].append(test_loss)
     results['test_acc'].append(test_acc)
 
-    # Tracking models results using SummaryWriter()
+    # Tracking models' results using SummaryWriter()
     if writer:
 
       # Adding results to be tracked to the writer
