@@ -155,7 +155,7 @@ def create_tf_callback(dir_name:str, experiment_name:str):
   log_dir = dir_name + "/" + experiment_name + "/" + current_datetime
 
   # Creating the callback
-  callback = tf.callbacks.TensorBoard(log_dir = log_dir)
+  callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
   print(f"Saving TensorBoard log files to: {log_dir}")
 
   return callback
