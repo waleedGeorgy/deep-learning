@@ -138,7 +138,7 @@ def plot_curves(history):
   plt.ylabel('Accuracy')
   plt.title('Accuracy Curves');
 
-def create_tf_callback(dir_name:str, experiment_name:str):
+def create_tensorboard_callback(dir_name:str, experiment_name:str):
   '''
   Creates a TensorBoard callback in the "dir_name/experiment_name/current_datetime/"
   directory.
