@@ -60,7 +60,7 @@ def plot_class_report_and_confmat(y_true, y_pred, class_names, savefig = False):
 
   # Saving the confusion matrix as a figure
   if savefig == True:
-    confmat.savefig("confusion_matrix.png")
+    confmat.figure_.savefig('confusion_matrix.png')
 
 def unzip_data(path:str):
   '''
