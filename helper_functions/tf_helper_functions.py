@@ -159,3 +159,46 @@ def create_tf_callback(dir_name:str, experiment_name:str):
   print(f"Saving TensorBoard log files to: {log_dir}")
 
   return callback
+  
+def compare_finetune_history(original_history, new_history, initial_epochs=5):
+    """
+    Compares two model history objects. Shows the loss and accuracy curves before
+    and after fine-tuning.
+
+    Args:
+      original_history: history object of a model before fine-tuning.
+      new_history: history object of a model after fine-tuning.
+      initial_epochs: the epoch where fine-tuning starts.
+    """
+    # Get original history metrics
+    acc = original_history.history["accuracy"]
+    loss = original_history.history["loss"]
+    val_acc = original_history.history["val_accuracy"]
+    val_loss = original_history.history["val_loss"]
+
+    # Combine original history with new history
+    total_acc = acc + new_history.history["accuracy"]
+    total_loss = loss + new_history.history["loss"]
+    total_val_acc = val_acc + new_history.history["val_accuracy"]
+    total_val_loss = val_loss + new_history.history["val_loss"]
+
+    # Get the range of epochs for the x-axis
+    epochs = range(len(total_loss))
+
+    # Show accuracy plots
+    plt.figure(figsize=(7, 7))
+    plt.subplot(2, 1, 1)
+    plt.plot(epochs, total_acc, label = 'Training Accuracy')
+    plt.plot(epochs, total_val_acc, label = 'Validation Accuracy')
+    plt.plot([initial_epochs - 1, initial_epochs - 1], plt.ylim(), label = 'Start of Fine Tuning')
+    plt.legend()
+    plt.title('Training and Validation Accuracy')
+
+    # Show loss plots
+    plt.subplot(2, 1, 2)
+    plt.plot(epochs, total_loss, label = 'Training Loss')
+    plt.plot(epochs, total_val_loss, label = 'Validation Loss')
+    plt.plot([initial_epochs - 1, initial_epochs - 1], plt.ylim(), label = 'Start of Fine Tuning')
+    plt.legend()
+    plt.title('Training and Validation Loss')
+    plt.xlabel('Epoch');
