@@ -69,8 +69,10 @@ def unzip_data(path:str):
   Args:
     path (str): the path of the file to be unzipped.
   '''
+  print('Unzipping data...')
   with zipfile.ZipFile(path) as zipref:
     zipref.extractall()
+  print('Done!')
 
 def pred_and_plot(model, filename, class_names):
   '''
