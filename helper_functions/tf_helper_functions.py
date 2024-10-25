@@ -74,7 +74,7 @@ def unzip_data(path:str):
     zipref.extractall()
   print('Done!')
 
-def pred_and_plot(model, filename, class_names, rescale = False):
+def pred_and_plot(model, filename, class_names, img_size = 224, rescale = False):
   '''
   Predicts the class of an image using a TensorFlow model and plots it along with
   its predicted class.
