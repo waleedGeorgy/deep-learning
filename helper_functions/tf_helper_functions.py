@@ -74,7 +74,7 @@ def unzip_data(path:str):
     zipref.extractall()
   print('Done!')
 
-def pred_and_plot(model, filename, class_names):
+def pred_and_plot(model, filename, class_names, rescale = False):
   '''
   Predicts the class of an image using a TensorFlow model and plots it along with
   its predicted class.
@@ -85,7 +85,15 @@ def pred_and_plot(model, filename, class_names):
     class_names: the names of the classes the model was trained on.
   '''
   # Turning the image into a tensor and adding the batch dimension to it
-  img = load_and_prep_img(filename)
+  img = tf.io.read_file(filename)
+  img = tf.image.decode_image(img)
+  # Resiszing the image into a default image size
+  img = tf.image.resize(img, [img_size, img_size])
+  # Normalizing the image
+  if rescale:
+    img = img/255.
+
+  # Adding the batch dimension
   img = tf.expand_dims(img, axis = 0)
 
   # Making a prediction on the image using the model
