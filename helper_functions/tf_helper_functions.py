@@ -89,17 +89,17 @@ def pred_and_plot(model, filename, class_names):
   img = tf.expand_dims(img, axis = 0)
 
   # Making a prediction on the image using the model
-  pred_prob = model.predict(img)
+  pred_prob = model.predict(img)[0]
 
   # Checking if the classification is binary or multi-class and applying the appropriate functions
-  if len(pred_prob[0]) > 1:
-    pred_class = class_names[pred_prob.argmax()] 
+  if len(pred_prob) > 1:
+    pred_class = class_names[tf.argmax(pred_prob)] 
   else:
-    pred_class = class_names[int(tf.round(pred_prob)[0][0])]
+    pred_class = class_names[int(tf.round(pred_prob)[0])]
   
   # Plotting the image and its predicted class
-  plt.imshow(img)
-  plt.title(f'Predicted class: {class_name}')
+  plt.imshow(tf.squeeze(img))
+  plt.title(f'Predicted class: {pred_class}')
   plt.axis(False)
 
 def plot_curves(history):
