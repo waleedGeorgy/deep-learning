@@ -93,11 +93,9 @@ def pred_and_plot(model, filename, class_names):
 
   # Checking if the classification is binary or multi-class and applying the appropriate functions
   if len(pred_prob[0]) > 1:
-    pred_class = tf.argmax(pred_prob)
-    class_name = class_names[pred_class]
+    pred_class = class_names[pred_prob.argmax()] 
   else:
-    pred_class = tf.round(pred_prob)
-    class_name = class_names[int(pred_class.numpy())]
+    pred_class = class_names[int(tf.round(pred_prob)[0][0])]
   
   # Plotting the image and its predicted class
   plt.imshow(img)
