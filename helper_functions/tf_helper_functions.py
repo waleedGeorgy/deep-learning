@@ -96,10 +96,15 @@ def pred_and_plot(model, filename, class_names):
     pred_class = class_names[tf.argmax(pred_prob)] 
   else:
     pred_class = class_names[int(tf.round(pred_prob)[0])]
+  true_class_name = filename.split('/')[-2]
   
   # Plotting the image and its predicted class
-  plt.imshow(tf.squeeze(img))
-  plt.title(f'Predicted class: {pred_class}')
+  if pred_class == true_class_name:
+    text_color = 'g'
+  else:
+    text_color = 'r'
+  plt.imshow(tf.squeeze(img/255.))
+  plt.title(f'True class: {true_class_name} | Predicted class: {pred_class}', c = text_color)
   plt.axis(False)
 
 def plot_curves(history):
