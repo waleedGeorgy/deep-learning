@@ -17,7 +17,7 @@ def dir_walk(dir):
 
 def load_and_prep_img(img_path:str,
                       img_size:int = 224,
-                      rescale:bool = True):
+                      rescale:bool = False):
   '''
   Reads in an image and turns it into a tensor.
 
