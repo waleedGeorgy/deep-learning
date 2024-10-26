@@ -76,13 +76,18 @@ def unzip_data(path:str):
 
 def pred_and_plot(model, filename, class_names, img_size = 224, rescale = False):
   '''
-  Predicts the class of an image using a TensorFlow model and plots it along with
-  its predicted class.
+  Reads in an image, turns it into a tensor, resizes it into a default
+  size of (224x224x3), and rescales it if neccessary. Then predicts
+  the class of the image using a trained TensorFlow model and plots it
+  along with its predicted class, true class, and maximum prediction
+  probability.
 
   Args:
     model: the trained TensorFlow model that will make the prediction.
     filename: the path of the image that needs to be predicted on.
     class_names: the names of the classes the model was trained on.
+    img_size (default = 224): the height and width the image will be resized into.
+    rescale (default = False): If normalization should be applied to the image or not.
   '''
   # Turning the image into a tensor and adding the batch dimension to it
   img = tf.io.read_file(filename)
@@ -104,16 +109,17 @@ def pred_and_plot(model, filename, class_names, img_size = 224, rescale = False)
     pred_class = class_names[tf.argmax(pred_prob)] 
   else:
     pred_class = class_names[int(tf.round(pred_prob)[0])]
-  true_class_name = filename.split('/')[-2]
+  # Getting the true class of the image
+  true_class = filename.split('/')[-2]
   
   # Plotting the image and its predicted class
-  if pred_class == true_class_name:
+  if pred_class == true_class:
     text_color = 'g'
   else:
     text_color = 'r'
   plt.imshow(tf.squeeze(img/255.))
-  plt.title(f'True class: {true_class_name} | Predicted class: {pred_class} | Prediction probability: {max(pred_prob)}', c = text_color)
-  plt.axis(False)
+  plt.title(f'True class: {true_class} | Predicted class: {pred_class} | Prediction probability: {max(pred_prob)}', c = text_color)
+  plt.axis(False);
 
 def plot_curves(history):
   '''
