@@ -112,7 +112,7 @@ def pred_and_plot(model, filename, class_names, img_size = 224, rescale = False)
   else:
     text_color = 'r'
   plt.imshow(tf.squeeze(img/255.))
-  plt.title(f'True class: {true_class_name} | Predicted class: {pred_class}', c = text_color)
+  plt.title(f'True class: {true_class_name} | Predicted class: {pred_class} | Prediction probability: {max(pred_prob)}', c = text_color)
   plt.axis(False)
 
 def plot_curves(history):
